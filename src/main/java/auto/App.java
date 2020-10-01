@@ -171,7 +171,9 @@ public class App
     public static void readProperties(){
         try {
             InputStream in = App.class.getResourceAsStream("/cfg.properties");
-            BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+
+
             _prop.load(bf);
         }catch (IOException e){
             e.printStackTrace();
