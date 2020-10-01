@@ -61,8 +61,11 @@ public class App
             command = scan.nextLine();
             if (command.equals("")) {
                 // print result
-                System.out.println(qa.answer);
-                System.out.println("");
+                System.out.print(qa.answer);
+            }
+            command = scan.nextLine();
+            if (command.equals("")) {
+                // print result
                 continue;
             }
             if (command.equals("menu")) {
@@ -84,29 +87,29 @@ public class App
         if (_wordType.equals(WordType.MESI))  {
             int wordIndex = _random.nextInt(Dict.mesis.size());
             String word = Dict.mesis.get(wordIndex);
-            question += word+"\n";
+            question += word + " ";
             question += curPolite.getName();
             question += " " + curTime.getName();
-            question += " " + curYesNo.getName();
+            question += "" + curYesNo.getName();
 
             qa.question = question;
 
             if (curPolite.equals(PoliteType.NORMAL)) {
                 if (curTime.equals(TimeType.NOW)) {
                     if (curYesNo.equals(YesNoType.YES)) {
-                        qa.answer = word + "だ";
+                        qa.answer = word + " だ";
                     }
                     if (curYesNo.equals(YesNoType.NO)) {
-                        qa.answer = word + "ではない";
+                        qa.answer = word + " ではない";
                     }
                 }
 
                 if (curTime.equals(TimeType.PAST)) {
                     if (curYesNo.equals(YesNoType.YES)) {
-                        qa.answer = word + "だった";
+                        qa.answer = word + " だった";
                     }
                     if (curYesNo.equals(YesNoType.NO)) {
-                        qa.answer = word + "ではなかった";
+                        qa.answer = word + " ではなかった";
                     }
                 }
             }
@@ -114,19 +117,19 @@ public class App
             if (curPolite.equals(PoliteType.POLITE)) {
                 if (curTime.equals(TimeType.NOW)) {
                     if (curYesNo.equals(YesNoType.YES)) {
-                        qa.answer = word + "です";
+                        qa.answer = word + " です";
                     }
                     if (curYesNo.equals(YesNoType.NO)) {
-                        qa.answer = word + "ではありません";
+                        qa.answer = word + " ではありません";
                     }
                 }
 
                 if (curTime.equals(TimeType.PAST)) {
                     if (curYesNo.equals(YesNoType.YES)) {
-                        qa.answer = word + "でした";
+                        qa.answer = word + " でした";
                     }
                     if (curYesNo.equals(YesNoType.NO)) {
-                        qa.answer = word + "ではありませんでした";
+                        qa.answer = word + " ではありませんでした";
                     }
                 }
             }
