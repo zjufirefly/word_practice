@@ -28,8 +28,7 @@ public class App
 
     private static Random _random = new Random();
 
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws InterruptedException {
         // read cfg file
         readProperties();
 
@@ -50,30 +49,33 @@ public class App
         while (true) {
             // 生产单词
             QA qa = generalQA();
-            System.out.print(qa.question);
+            System.out.println(qa.question);
+            Thread.sleep(4000);
 
-//            System.out.println("");
+
             Scanner scan = new Scanner(System.in);
             String command = null;
             System.out.flush();
+            System.out.println(qa.answer);
+            Thread.sleep(1000);
 
 
-            command = scan.nextLine();
-            if (command.equals("")) {
-                // print result
-                System.out.print(qa.answer);
-            }
-            command = scan.nextLine();
-            if (command.equals("")) {
-                // print result
-                continue;
-            }
-            if (command.equals("menu")) {
-
-            }
-            if (command.equals("exit")) {
-                return;
-            }
+//            command = scan.nextLine();
+//            if (command.equals("")) {
+//                // print result
+//                System.out.print(qa.answer);
+//            }
+//            command = scan.nextLine();
+//            if (command.equals("")) {
+//                // print result
+//                continue;
+//            }
+//            if (command.equals("menu")) {
+//
+//            }
+//            if (command.equals("exit")) {
+//                return;
+//            }
         }
     }
 
