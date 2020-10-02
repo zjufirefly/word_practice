@@ -163,7 +163,7 @@ public class App
 
 
             Scanner scan = new Scanner(System.in);
-            String command = scan.nextLine();;
+//            String command = scan.nextLine();;
             System.out.flush();
             System.out.println(qa.answer);
             Thread.sleep(1000);
@@ -303,7 +303,77 @@ public class App
             return qa;
         }
 
+        if (_wordType.equals(WordType.SERU))  {
+            int wordIndex = _random.nextInt(Dict.verbs.size());
+            Verb word = Dict.verbs.get(wordIndex);
+            String seruWord = VerbConvert.convertSeru(word.verb, word.type);
+
+            Verb verb = new Verb();
+            verb.verb = seruWord;
+            verb.type = 2;
+
+            qa = generalDosiQA(word.verb, verb, curPolite, curTime, curYesNo);
+
+            return qa;
+        }
+
         return  null;
+    }
+
+    public static QA generalDosiQA(String originWord, Verb word, PoliteType curPolite, TimeType curTime, YesNoType curYesNo) {
+        QA qa = new QA();
+
+        String question = "";
+        question += originWord + " ";
+        question += curPolite.getName();
+        question += " " + curTime.getName();
+        question += "" + curYesNo.getName();
+
+        qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
+
+        qa.question = question;
+
+        if (curPolite.equals(PoliteType.NORMAL)) {
+            if (curTime.equals(TimeType.NOW)) {
+                if (curYesNo.equals(YesNoType.YES)) {
+                    qa.answer = word.verb;
+                }
+                if (curYesNo.equals(YesNoType.NO)) {
+                    qa.answer = VerbConvert.convertNai(word.verb, word.type) + "ない";
+                }
+            }
+
+            if (curTime.equals(TimeType.PAST)) {
+                if (curYesNo.equals(YesNoType.YES)) {
+                    qa.answer = VerbConvert.convertTa(word.verb, word.type);
+                }
+                if (curYesNo.equals(YesNoType.NO)) {
+                    qa.answer = VerbConvert.convertNai(word.verb, word.type) + "なかった";
+                }
+            }
+        }
+
+        if (curPolite.equals(PoliteType.POLITE)) {
+            if (curTime.equals(TimeType.NOW)) {
+                if (curYesNo.equals(YesNoType.YES)) {
+                    qa.answer = VerbConvert.convertMasu(word.verb, word.type) + "ます";
+                }
+                if (curYesNo.equals(YesNoType.NO)) {
+                    qa.answer = VerbConvert.convertMasu(word.verb, word.type) + "ません";
+                }
+            }
+
+            if (curTime.equals(TimeType.PAST)) {
+                if (curYesNo.equals(YesNoType.YES)) {
+                    qa.answer = VerbConvert.convertMasu(word.verb, word.type) + "ました";
+                }
+                if (curYesNo.equals(YesNoType.NO)) {
+                    qa.answer = VerbConvert.convertMasu(word.verb, word.type) + "ませんでした";
+                }
+            }
+        }
+
+        return qa;
     }
 
     public static PoliteType getPoliteType() {

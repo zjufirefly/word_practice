@@ -16,7 +16,7 @@ public class VerbConvert {
         }
 
         if (type == 2) {
-            return word.substring(0, word.length() - 2);
+            return word.substring(0, word.length() - 1);
         }
 
         if (type == 3) {
@@ -45,7 +45,7 @@ public class VerbConvert {
         }
 
         if (type == 2) {
-            return word.substring(0, word.length() - 2) + "た";
+            return word.substring(0, word.length() - 1) + "た";
         }
 
         if (type == 3) {
@@ -71,7 +71,7 @@ public class VerbConvert {
         }
 
         if (type == 2) {
-            return word.substring(0, word.length() - 2);
+            return word.substring(0, word.length() - 1);
         }
 
         if (type == 3) {
@@ -81,6 +81,32 @@ public class VerbConvert {
 
             if (word.endsWith("する")) {
                 return word.substring(0, word.length() - 2) + "し";
+            }
+        }
+
+        return null;
+    }
+
+    // type 0,自动判断 1,一类动词 2,二类动词 3，三类动词
+    // verb 动词原形
+    public static String convertSeru(String word, int type) {
+        if (type == 1) {
+            String endSound = VerbConvert.endChar(word);
+            String newWord = word.substring(0, word.length() - 1) + VerbSound.getA(endSound) + "せる";
+            return newWord;
+        }
+
+        if (type == 2) {
+            return word.substring(0, word.length() - 2)+"させる";
+        }
+
+        if (type == 3) {
+            if (word.equals("来る")||word.equals("くる")) {
+                return "こさせる";
+            }
+
+            if (word.endsWith("する")) {
+                return word.substring(0, word.length() - 2) + "させる";
             }
         }
 

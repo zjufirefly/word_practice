@@ -2,7 +2,7 @@ package auto;
 
 public enum WordType {
 
-    MESI("名词", 1), DOSI("动词", 2), ALL("全部", 3);
+    MESI("名词", 1), DOSI("动词", 2), SERU("使役", 3), ALL("全部", 4);
 
     private String name;
     private int index;
