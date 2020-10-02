@@ -25,6 +25,16 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.hynnet</groupId>-->
+      <!--<artifactId>jacob</artifactId>-->
+      <!--<version>1.18</version>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>com.jacob</groupId>
+      <artifactId>jacob</artifactId>
+      <version>1.19</version>
+    </dependency>
   </dependencies>
 
   <build>

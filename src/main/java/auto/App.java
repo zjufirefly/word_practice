@@ -1,5 +1,9 @@
 package auto;
 
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +32,108 @@ public class App
 
     private static Random _random = new Random();
 
+    public static void textToSpeech(String text) {
+        ActiveXComponent ax = null;
+        try {
+            ax = new ActiveXComponent("Sapi.SpVoice");
+
+            // 运行时输出语音内容
+            Dispatch spVoice = ax.getObject();
+            // 音量 0-100
+            ax.setProperty("Volume", new Variant(100));
+            // 语音朗读速度 -10 到 +10
+            ax.setProperty("Rate", new Variant(-2));
+            // 执行朗读
+            Dispatch.call(spVoice, "Speak", new Variant(text));
+
+            // 下面是构建文件流把生成语音文件
+
+            ax = new ActiveXComponent("Sapi.SpFileStream");
+            Dispatch spFileStream = ax.getObject();
+
+            ax = new ActiveXComponent("Sapi.SpAudioFormat");
+            Dispatch spAudioFormat = ax.getObject();
+
+            // 设置音频流格式
+            Dispatch.put(spAudioFormat, "Type", new Variant(22));
+            // 设置文件输出流格式
+            Dispatch.putRef(spFileStream, "Format", spAudioFormat);
+            // 调用输出 文件流打开方法，创建一个.wav文件
+            Dispatch.call(spFileStream, "Open", new Variant("./text.wav"), new Variant(3), new Variant(true));
+            // 设置声音对象的音频输出流为输出文件对象
+            Dispatch.putRef(spVoice, "AudioOutputStream", spFileStream);
+            // 设置音量 0到100
+            Dispatch.put(spVoice, "Volume", new Variant(100));
+            // 设置朗读速度
+            Dispatch.put(spVoice, "Rate", new Variant(-2));
+            // 开始朗读
+            Dispatch.call(spVoice, "Speak", new Variant(text));
+
+            // 关闭输出文件
+            Dispatch.call(spFileStream, "Close");
+            Dispatch.putRef(spVoice, "AudioOutputStream", null);
+
+            spAudioFormat.safeRelease();
+            spFileStream.safeRelease();
+            spVoice.safeRelease();
+            ax.safeRelease();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readJp(String jp) {
+        // 创建与微软应用程序的新连接。传入的参数是注册表中注册的程序的名称。
+        ActiveXComponent sap = new ActiveXComponent("Sapi.SpVoice");
+
+        try {
+
+            // 音量 0-100
+            sap.setProperty("Volume", new Variant(100));
+
+            // 语音朗读速度 -10 到 +10
+            sap.setProperty("Rate", new Variant(-2));
+
+
+            // 获取执行对象
+            Dispatch sapo = sap.getObject();
+
+            // 执行朗读
+            Dispatch.call(sapo, "Speak", new Variant(jp));
+
+            // 关闭执行对象
+            sapo.safeRelease();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+// 关闭应用程序连接
+
+            sap.safeRelease();
+
+        }
+
+    }
+
+//    java -classpath ".;E:\code\general\*" auto.App
     public static void main( String[] args ) throws InterruptedException {
+
+//        while (1==1) {
+//            Scanner scan = new Scanner(System.in);
+//            String read = scan.nextLine();
+//            readJp(read);
+//
+//            if (1 == 0) {
+//                break;
+//            }
+//        }
+
+
+
         // read cfg file
         readProperties();
 
@@ -46,11 +151,15 @@ public class App
         // 加载单词
         loadWord();
 
+        int i = 0;
         while (true) {
             // 生产单词
+            i++;
+            System.out.println(i);
             QA qa = generalQA();
             System.out.println(qa.question);
-            Thread.sleep(4000);
+            readJp(qa.readq);
+            Thread.sleep(1000);
 
 
             Scanner scan = new Scanner(System.in);
@@ -93,6 +202,8 @@ public class App
             question += curPolite.getName();
             question += " " + curTime.getName();
             question += "" + curYesNo.getName();
+
+            qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
 
             qa.question = question;
 
