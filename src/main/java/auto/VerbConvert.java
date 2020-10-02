@@ -97,7 +97,7 @@ public class VerbConvert {
         }
 
         if (type == 2) {
-            return word.substring(0, word.length() - 2)+"させる";
+            return word.substring(0, word.length() - 1)+"させる";
         }
 
         if (type == 3) {
