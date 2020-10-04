@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Scanner;
@@ -151,22 +152,28 @@ public class App
         // 加载单词
         loadWord();
 
+        Date begin = new Date();
         int i = 0;
         while (true) {
             // 生产单词
             i++;
             System.out.println(i);
             QA qa = generalQA();
-            System.out.println(qa.question);
-            readJp(qa.readq);
-            Thread.sleep(1000);
+            System.out.print(qa.question);
+//            readJp(qa.readq);
+//            Thread.sleep(1000);
 
 
             Scanner scan = new Scanner(System.in);
-//            String command = scan.nextLine();;
+            String command = scan.nextLine();;
             System.out.flush();
             System.out.println(qa.answer);
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
+//            command = scan.nextLine();
+            if (command.equals("exit")) {
+                Date end = new Date();
+                System.out.println((end.getTime() - begin.getTime()) / 1000);
+            }
 
 
 //            command = scan.nextLine();
