@@ -43,7 +43,7 @@ public class App
             // 音量 0-100
             ax.setProperty("Volume", new Variant(100));
             // 语音朗读速度 -10 到 +10
-            ax.setProperty("Rate", new Variant(-2));
+            ax.setProperty("Rate", new Variant(5));
             // 执行朗读
             Dispatch.call(spVoice, "Speak", new Variant(text));
 
@@ -66,7 +66,7 @@ public class App
             // 设置音量 0到100
             Dispatch.put(spVoice, "Volume", new Variant(100));
             // 设置朗读速度
-            Dispatch.put(spVoice, "Rate", new Variant(-2));
+            Dispatch.put(spVoice, "Rate", new Variant(100));
             // 开始朗读
             Dispatch.call(spVoice, "Speak", new Variant(text));
 
@@ -94,7 +94,7 @@ public class App
             sap.setProperty("Volume", new Variant(100));
 
             // 语音朗读速度 -10 到 +10
-            sap.setProperty("Rate", new Variant(-2));
+            sap.setProperty("Rate", new Variant(2));
 
 
             // 获取执行对象
@@ -160,6 +160,10 @@ public class App
             System.out.println(i);
             QA qa = generalQA();
             System.out.print(qa.question);
+
+            if (_prop.getProperty("read").equals("1")) {
+                readJp(qa.readq);
+            }
 //            readJp(qa.readq);
 //            Thread.sleep(1000);
 
@@ -212,7 +216,31 @@ public class App
 
             qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
 
-            qa.question = question;
+            qa.question = "";
+            if (curPolite.equals(PoliteType.POLITE)) {
+                qa.question += "对老师说:";
+            }
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                qa.question += "对同学说:";
+            }
+
+            if (curTime.equals(TimeType.NOW)) {
+                qa.question += "现在";
+            }
+            if (curTime.equals(TimeType.PAST)) {
+                qa.question += "过去";
+            }
+
+            if (curYesNo.equals(YesNoType.YES)) {
+                qa.question += "是";
+            }
+
+            if (curYesNo.equals(YesNoType.NO)) {
+                qa.question += "不是";
+            }
+            qa.readq = qa.question;
+            qa.question += word;
+//            qa.question = question;
 
             if (curPolite.equals(PoliteType.NORMAL)) {
                 if (curTime.equals(TimeType.NOW)) {
@@ -268,6 +296,32 @@ public class App
 
             qa.question = question;
 
+            qa.question = "";
+            if (curPolite.equals(PoliteType.POLITE)) {
+                qa.question += "对老师说:";
+            }
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                qa.question += "对同学说:";
+            }
+
+            if (curTime.equals(TimeType.NOW)) {
+                qa.question += "现在";
+            }
+            if (curTime.equals(TimeType.PAST)) {
+                qa.question += "过去";
+            }
+
+            if (curYesNo.equals(YesNoType.YES)) {
+                qa.question += "";
+            }
+
+            if (curYesNo.equals(YesNoType.NO)) {
+                qa.question += "没有";
+            }
+            qa.readq = qa.question;
+            qa.question += "[" + word.verb + "]";
+
+
             if (curPolite.equals(PoliteType.NORMAL)) {
                 if (curTime.equals(TimeType.NOW)) {
                     if (curYesNo.equals(YesNoType.YES)) {
@@ -320,6 +374,30 @@ public class App
             verb.type = 2;
 
             qa = generalDosiQA(word.verb, verb, curPolite, curTime, curYesNo);
+            qa.question = "";
+            if (curPolite.equals(PoliteType.POLITE)) {
+                qa.question += "对老师说:";
+            }
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                qa.question += "对同学说:";
+            }
+
+            if (curTime.equals(TimeType.NOW)) {
+                qa.question += "现在";
+            }
+            if (curTime.equals(TimeType.PAST)) {
+                qa.question += "过去";
+            }
+
+            if (curYesNo.equals(YesNoType.YES)) {
+                qa.question += "让";
+            }
+
+            if (curYesNo.equals(YesNoType.NO)) {
+                qa.question += "没有让";
+            }
+            qa.readq = qa.question;
+            qa.question += "[" + word.verb + "]";
 
             return qa;
         }
