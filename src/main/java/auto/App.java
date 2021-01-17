@@ -402,6 +402,164 @@ public class App
             return qa;
         }
 
+
+        if (_wordType.equals(WordType.KEYOSI))  {
+            int wordIndex = _random.nextInt(Dict.keiyous.size());
+            String word = Dict.keiyous.get(wordIndex);
+            question += word + " ";
+            question += curPolite.getName();
+            question += " " + curTime.getName();
+            question += "" + curYesNo.getName();
+
+            qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
+
+            qa.question = "";
+            if (curPolite.equals(PoliteType.POLITE)) {
+                qa.question += "对老师说:";
+            }
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                qa.question += "对同学说:";
+            }
+
+            if (curTime.equals(TimeType.NOW)) {
+                qa.question += "";
+            }
+            if (curTime.equals(TimeType.PAST)) {
+                qa.question += "过去";
+            }
+
+            if (curYesNo.equals(YesNoType.YES)) {
+                qa.question += "";
+            }
+
+            if (curYesNo.equals(YesNoType.NO)) {
+                qa.question += "不 ";
+            }
+            qa.readq = qa.question;
+            qa.question += word;
+//            qa.question = question;
+
+            String removeWord = word.substring(0, word.length() -1);
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                if (curTime.equals(TimeType.NOW)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word;
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = removeWord + "くない";
+                    }
+                }
+
+                if (curTime.equals(TimeType.PAST)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = removeWord + "かった";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = removeWord + "くなかった";
+                    }
+                }
+            }
+
+            if (curPolite.equals(PoliteType.POLITE)) {
+                if (curTime.equals(TimeType.NOW)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word + "です";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = removeWord + "くないです";
+                    }
+                }
+
+                if (curTime.equals(TimeType.PAST)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = removeWord + "かったです";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = removeWord + "くなかったです";
+                    }
+                }
+            }
+            return qa;
+        }
+
+        if (_wordType.equals(WordType.KEYODOSI))  {
+            int wordIndex = _random.nextInt(Dict.keiyoudosis.size());
+            String word = Dict.keiyoudosis.get(wordIndex);
+            question += word + " ";
+            question += curPolite.getName();
+            question += " " + curTime.getName();
+            question += "" + curYesNo.getName();
+
+            qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
+
+            qa.question = "";
+            if (curPolite.equals(PoliteType.POLITE)) {
+                qa.question += "对老师说:";
+            }
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                qa.question += "对同学说:";
+            }
+
+            if (curTime.equals(TimeType.NOW)) {
+                qa.question += "";
+            }
+            if (curTime.equals(TimeType.PAST)) {
+                qa.question += "过去";
+            }
+
+            if (curYesNo.equals(YesNoType.YES)) {
+                qa.question += "";
+            }
+
+            if (curYesNo.equals(YesNoType.NO)) {
+                qa.question += "不 ";
+            }
+            qa.readq = qa.question;
+            qa.question += word;
+//            qa.question = question;
+
+            if (curPolite.equals(PoliteType.NORMAL)) {
+                if (curTime.equals(TimeType.NOW)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word + "だ";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = word + "ではない";
+                    }
+                }
+
+                if (curTime.equals(TimeType.PAST)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word + "だった";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = word + "ではなかった";
+                    }
+                }
+            }
+
+            if (curPolite.equals(PoliteType.POLITE)) {
+                if (curTime.equals(TimeType.NOW)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word + "です";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = word + "ではありません";
+                    }
+                }
+
+                if (curTime.equals(TimeType.PAST)) {
+                    if (curYesNo.equals(YesNoType.YES)) {
+                        qa.answer = word + "でした";
+                    }
+                    if (curYesNo.equals(YesNoType.NO)) {
+                        qa.answer = word + "ではありませんでした";
+                    }
+                }
+            }
+            return qa;
+        }
+
         return  null;
     }
 
