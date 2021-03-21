@@ -171,7 +171,11 @@ public class App
             Scanner scan = new Scanner(System.in);
             String command = scan.nextLine();;
             System.out.flush();
-            System.out.println(qa.answer);
+
+            if (!_wordType.equals(WordType.ALL))  {
+                System.out.println(qa.answer);
+            }
+
 //            Thread.sleep(1000);
 //            command = scan.nextLine();
             if (command.equals("exit")) {
@@ -481,7 +485,78 @@ public class App
             }
             return qa;
         }
+        if (_wordType.equals(WordType.ALL))  {
+            while (true) {
+                int wordType = _random.nextInt(4);
+                String word = null;
+                if (wordType == 0) {
+                    if (Dict.mesis.size() > 0) {
+                        int wordIndex = _random.nextInt(Dict.mesis.size());
+                        word = Dict.mesis.get(wordIndex);
+                    }
+                }
 
+                if (wordType == 1) {
+                    if (Dict.verbs.size() > 0) {
+                        int wordIndex = _random.nextInt(Dict.verbs.size());
+                        word = Dict.verbs.get(wordIndex).verb;
+                    }
+                }
+
+                if (wordType == 2) {
+                    if (Dict.keiyous.size() > 0) {
+                        int wordIndex = _random.nextInt(Dict.keiyous.size());
+                        word = Dict.keiyous.get(wordIndex);
+                    }
+                }
+
+                if (wordType == 3) {
+                    if (Dict.keiyoudosis.size() > 0) {
+                        int wordIndex = _random.nextInt(Dict.keiyoudosis.size());
+                        word = Dict.keiyoudosis.get(wordIndex);
+                    }
+                }
+
+                if (word == null) {
+                    continue;
+                }
+
+                question += word + " ";
+                question += curPolite.getName();
+                question += " " + curTime.getName();
+                question += "" + curYesNo.getName();
+
+                qa.readq = curPolite.getName() + curTime.getName() + curYesNo.getName();
+
+                qa.question = "";
+//                if (curPolite.equals(PoliteType.POLITE)) {
+//                    qa.question += "对老师说:";
+//                }
+//                if (curPolite.equals(PoliteType.NORMAL)) {
+//                    qa.question += "对同学说:";
+//                }
+//
+//                if (curTime.equals(TimeType.NOW)) {
+//                    qa.question += "";
+//                }
+//                if (curTime.equals(TimeType.PAST)) {
+//                    qa.question += "过去";
+//                }
+//
+//                if (curYesNo.equals(YesNoType.YES)) {
+//                    qa.question += "";
+//                }
+//
+//                if (curYesNo.equals(YesNoType.NO)) {
+//                    qa.question += "不 ";
+//                }
+                qa.readq = qa.question;
+                qa.question = word;
+                qa.answer = word;
+                return qa;
+            }
+
+        }
         if (_wordType.equals(WordType.KEYODOSI))  {
             int wordIndex = _random.nextInt(Dict.keiyoudosis.size());
             String word = Dict.keiyoudosis.get(wordIndex);
